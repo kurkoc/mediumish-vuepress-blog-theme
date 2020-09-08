@@ -1,5 +1,5 @@
 module.exports = {
-  title: 'Mediumish',
+  title: 'kurkoc blog',
   base: '/',
   dest: 'public',
   description: 'Mediumish theme with VuePress and Forestry',

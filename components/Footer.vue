@@ -4,10 +4,10 @@
 <div class="container">
 <div class="row justify-content-between">
 <div class="col">
-<a href="/"><img class="logofooter" :src="($withBase)($themeConfig.logo)"></a>
+<!-- <a href="/"><img class="logofooter" :src="($withBase)($themeConfig.logo)"></a> -->
 </div>
 <div class="col text-right">
-<ul v-if="contact" class="list-unstyled">
+<!-- <ul v-if="contact" class="list-unstyled">
 <li
 v-for="item in contact"
 :key="item.iconComponent"
@@ -23,7 +23,7 @@ class="contact-item"
 <li v-for="item in copyright" :key="item.text" class="copyright-item">
 <NavLink :link="item.link">{{ item.text }}</NavLink>
 </li>
-</ul>
+</ul> -->
 </div>
 </div>
 </div>
