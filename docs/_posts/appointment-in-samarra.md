@@ -1,9 +1,10 @@
 ---
-tags: []
+tags:
+- genel
 title: appointment in samarra
 date: 2020-09-07 21:00:00 +0000
 author: kurkoc
-featuredimg: ''
+featuredimg: "/assets/img/dummy1.jpg"
 summary: ''
 
 ---
