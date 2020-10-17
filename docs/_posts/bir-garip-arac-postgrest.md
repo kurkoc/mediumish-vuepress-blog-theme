@@ -6,13 +6,15 @@ tags:
 title: 'bir garip araç : postgrest'
 date: 2020-10-18 21:00:00 +0000
 author: kurkoc
-featuredimg: ''
+featuredimg: "/assets/img/logo-1.png"
 summary: ''
 
 ---
 frontend tarafında bir şeyleri kurcalarken bir an geliyor ve uzak sunucu üzerinde çalışan gerçeğe yakın verilerle çalışma ihtiyacımız oluyor. bu ihtiyacı karşılamak üzere internette yüzlerce hazır rest servis hizmeti bulunmakta. bunlardan bazıları sadece select işlemleri üzerine kurgulanmışken bazıları da bütün crud işlemlerine olanak sağlamakta. isterseniz kolaylıkla evcil hayvan, makale, çalışan sistemi geliştirirken bulabilirsiniz kendinizi.  çok gelişmiş olanlarda veri modelinizi dinamik oluşturup rastgele veriler vs. oluşturabiliyorsunuz. bunları zaten biliyorsunuzdur uzatmaya gerek yok.
 
-bu servisler genel olarak aradığımızı bize sunmakla birlikte bazen daha farklı bir yapı isteyebilir ya da kendi kurguladığınız bir veritabanı modeli üzerinde çalışmak isteyebilirsiniz. 
+bu servisler genel olarak aradığımızı bize sunmakla birlikte bazen daha farklı bir yapı isteyebilir ya da kendi kurguladığınız bir veritabanı modeli üzerinde çalışmak isteyebilirsiniz.
+
+ ![](/assets/img/logo-1.png)
 
 bahsedeceğim araç, postgresql veritabanı üzerinde çalışıp, veritabanı tablolarını tam teşekküllü bir rest servisine çeviren [postgrest](http://postgrest.org/). kısaca bahsetmek gerekirse; aşina olduğunuz http verb'lerini kullanarak basit http çağrıları yardımıyla veritabanı üzerinde crud işlemleri yapabilmemize olanak sağlayan bir araç diyebiliriz.
 
