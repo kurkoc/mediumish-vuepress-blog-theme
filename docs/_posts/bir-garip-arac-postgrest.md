@@ -3,14 +3,14 @@ tags:
 - postgresql
 - " rest"
 - api
-title: 'bir garip araç : postgrest'
+title: 'kurcalama : postgrest'
 date: 2020-10-18 21:00:00 +0000
 author: kurkoc
 featuredimg: "/assets/img/logo-1.png"
 summary: ''
 
 ---
-bu aralar biraz vuejs kurcalıyorum. şu sıralar ve genel olarak frontend tarafında bir şeyleri kurcalarken bir an geliyor ve uzak sunucu üzerinde çalışan, gerçeğe yakın verilerle çalışma ihtiyacımız oluyor. bu ihtiyacı karşılamak üzere internette yüzlerce hazır rest servis hizmeti bulunmakta. bunlardan bazıları sadece select işlemleri üzerine kurgulanmışken bazıları da bütün crud işlemlerine olanak sağlamakta. isterseniz kolaylıkla evcil hayvan, makale, çalışan sistemi geliştirirken bulabilirsiniz kendinizi.  çok gelişmiş olanlarda veri modelinizi dinamik oluşturup rastgele veriler vs. oluşturabiliyorsunuz. bunları zaten biliyorsunuzdur uzatmaya gerek yok.
+bu aralar biraz vuejs inceliyorum. bu aralar ve genel olarak frontend tarafında bir şeyleri kurcalarken bir an geliyor ve uzak sunucu üzerinde çalışan, gerçeğe yakın verilerle çalışma ihtiyacınız oluyor. bu ihtiyacı karşılamak üzere internette yüzlerce hazır rest servis hizmeti bulunmakta. bunlardan bazıları sadece select işlemleri üzerine kurgulanmışken bazıları da bütün crud işlemlerine olanak sağlamakta. isterseniz kolaylıkla evcil hayvan dükkanı, makale sistemi, çalışan uygulaması geliştirirken bulabilirsiniz kendinizi.  çok gelişmiş olanlarda veri modelinizi dinamik oluşturup rastgele veriler vs. oluşturabiliyorsunuz. bunları zaten biliyorsunuzdur uzatmaya gerek yok.
 
 bu servisler genel olarak aradığımızı bize sunmakla birlikte bazen daha farklı bir yapı isteyebilir ya da kendi kurguladığınız bir veritabanı modeli üzerinde çalışmak isteyebilirsiniz.
 
@@ -77,7 +77,7 @@ uygulama çalıştırıldığında default olarak 3000 portu üzerinden bir rest
       }
     ]
 
-peki, tekil bir ürünü getirmek istersek. rest servislerin best practicelerini düşünürsek product/2 şeklinde bir query ile ya da hiç olmadı product?id=2 şeklinde bir query ile olması gerekir mantıken ancak burada graphql tarzı bir gelişmiş sorgulama yapısını geliştirebilmek için farklı bir yaklaşım var.
+peki, tekil bir ürünü getirmek istersek. rest servislerin best practicelerini düşünürsek product/2 şeklinde bir query ile ya da hiç olmadı product?id=2 şeklinde bir query ile olması gerekir mantıken ancak burada graphql tarzı bir gelişmiş sorgulama yapısı sağlayabilmek için farklı bir yaklaşım geliştirilmiş.
 
     GET /product?id=eq.3 HTTP/1.1
 
@@ -104,7 +104,7 @@ category_id kolonunun görülmesini istemiyorum ve sadece id, name, quantity fie
         "quantity": 10
       }
 
-Stoğumuzda 10 ve üzerinde adet olan ürünleri listelemek istiyoruz.
+stoğumuzda 10 ve üzerinde adet olan ürünleri listelemek istiyoruz.
 
     GET /product?select=id,name,quantity&quantity=gte.10 HTTP/1.1
     
@@ -196,6 +196,6 @@ Az önce adetini arttırdığımız ürünü silelim.
 
     DELETE /product?id=eq.3 HTTP/1.1
 
-Bu örnekleri bir yerde sonlandırmam gerekiyor. Kullanılabilen [operatörler](http://postgrest.org/en/v7.0.0/api.html#operators) ve join işlemleri incelendiğinde bir rest servisten beklediğiniz filtreleme, sıralama, sayfalama, crud işlemler vs. hemen hemen her operasyonu yapabildiğinizi rahatlıkla söyleyebilirim ancak bazen karmaşık joinler, filtrelemeler ya da bazı sql yeteneklerini(case when gibi) kullanmanız gereken durumlar olabilir. Bu tarz senaryolarda da view, stored procedure tanımlayıp benzer şekilde çağırabiliyoruz. 
+Evet ben bu araca bayıldım ancak bu örnekleri bir yerde sonlandırmam gerekiyor. Kullanılabilen [operatörler](http://postgrest.org/en/v7.0.0/api.html#operators) ve join işlemleri incelendiğinde bir rest servisten beklediğiniz filtreleme, sıralama, sayfalama, crud işlemler vs. hemen hemen her operasyonu yapabildiğinizi rahatlıkla söyleyebilirim ancak bazen karmaşık joinler, filtrelemeler ya da bazı sql yeteneklerini(case when gibi) kullanmanız gereken durumlar olabilir. Bu tarz senaryolarda da view, stored procedure tanımlayıp benzer şekilde çağırabiliyoruz. 
 
 Söyleyeceklerim bu kadar, iyi günler
