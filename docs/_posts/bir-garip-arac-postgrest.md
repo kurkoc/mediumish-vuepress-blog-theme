@@ -10,35 +10,126 @@ featuredimg: "/assets/img/logo-1.png"
 summary: ''
 
 ---
-frontend tarafında bir şeyleri kurcalarken bir an geliyor ve uzak sunucu üzerinde çalışan gerçeğe yakın verilerle çalışma ihtiyacımız oluyor. bu ihtiyacı karşılamak üzere internette yüzlerce hazır rest servis hizmeti bulunmakta. bunlardan bazıları sadece select işlemleri üzerine kurgulanmışken bazıları da bütün crud işlemlerine olanak sağlamakta. isterseniz kolaylıkla evcil hayvan, makale, çalışan sistemi geliştirirken bulabilirsiniz kendinizi.  çok gelişmiş olanlarda veri modelinizi dinamik oluşturup rastgele veriler vs. oluşturabiliyorsunuz. bunları zaten biliyorsunuzdur uzatmaya gerek yok.
+bu aralar biraz vuejs kurcalıyorum. şu sıralar ve genel olarak frontend tarafında bir şeyleri kurcalarken bir an geliyor ve uzak sunucu üzerinde çalışan, gerçeğe yakın verilerle çalışma ihtiyacımız oluyor. bu ihtiyacı karşılamak üzere internette yüzlerce hazır rest servis hizmeti bulunmakta. bunlardan bazıları sadece select işlemleri üzerine kurgulanmışken bazıları da bütün crud işlemlerine olanak sağlamakta. isterseniz kolaylıkla evcil hayvan, makale, çalışan sistemi geliştirirken bulabilirsiniz kendinizi.  çok gelişmiş olanlarda veri modelinizi dinamik oluşturup rastgele veriler vs. oluşturabiliyorsunuz. bunları zaten biliyorsunuzdur uzatmaya gerek yok.
 
 bu servisler genel olarak aradığımızı bize sunmakla birlikte bazen daha farklı bir yapı isteyebilir ya da kendi kurguladığınız bir veritabanı modeli üzerinde çalışmak isteyebilirsiniz.
 
- ![](/assets/img/logo-1.png)
+![](/assets/img/logo-1.png)
 
 bahsedeceğim araç, postgresql veritabanı üzerinde çalışıp, veritabanı tablolarını tam teşekküllü bir rest servisine çeviren [postgrest](http://postgrest.org/). kısaca bahsetmek gerekirse; aşina olduğunuz http verb'lerini kullanarak basit http çağrıları yardımıyla veritabanı üzerinde crud işlemleri yapabilmemize olanak sağlayan bir araç diyebiliriz.
 
-contacts tablomuz üzerinde basit bir select sorgusu çalıştıralım.
+örnek olarak; contacts adında bir tablomuz olsun. uygulamayı çalıştırıp aşağıdaki gibi GET request'i attığımızda contacts tablomuzun içeriği json olarak listeleniyor desem.
 
     GET /contacts HTTP/1.1
 
-tablomuza yeni bir kayıt ekleyelim.
+bence güzel geliyor kulağa.
 
-    POST /contacts HTTP/1.1
-    Content-Type: application/json
-    { "firstname": "jane", "lastname": "doe" }
+benim SampleDatabase adında bir database'im var ve içerisinde örnek olması açısından oluşturulmuş "category" ve "product" adında iki adet tablo var.
 
-yaşı 25'ten büyük kişileri listeleyelim.
+![](/assets/img/db_schema.png)
 
-    GET /contacts?age=gt.25 HTTP/1.1
+uygulamanın indirme ve kurulum kısımlarını es geçiyorum. Burada dikkat etmeniz gereken postgrest uygulaması için oluşturulan kullanıcının select, insert, update vs. yapabilmesi için ilgili veritabanı üzerindeki privilege'larının verilmiş olması gerekiyor.  
 
-yaşı 25'ten büyük kişileri sadece isim ve yaşları görülecek şekilde listeleyelim.
+![](/assets/img/run.PNG)
 
-    GET /contacts?age=gt.25&select=first_name,age HTTP/1.1
+uygulama çalıştırıldığında default olarak 3000 portu üzerinden bir rest servis ayağa kaldırıyor aslında. 
 
-sıralama yapalım.
+İlk request olarak product tablomuzun içeriğini listeleyelim;
 
-    GET /contacts?order=age.desc,height.asc HTTP/1.1
+    GET /product HTTP/1.1
+
+    [
+      {
+        "id": 1,
+        "name": "asus",
+        "category_id": 1,
+        "quantity": 10
+      },
+      {
+        "id": 2,
+        "name": "fujitsu",
+        "category_id": 1,
+        "quantity": 6
+      },
+      {
+        "id": 3,
+        "name": "hp",
+        "category_id": 1,
+        "quantity": 33
+      },
+      {
+        "id": 4,
+        "name": "iphone",
+        "category_id": 2,
+        "quantity": 3
+      },
+      {
+        "id": 5,
+        "name": "note",
+        "category_id": 2,
+        "quantity": 8
+      },
+      {
+        "id": 6,
+        "name": "xiamoi mi",
+        "category_id": 2,
+        "quantity": 12
+      }
+    ]
+
+category_id kolonunun görülmesini istemiyorum ve sadece id, name, quantity fieldlarını görmek istiyoruz diyelim. (buradan sonraki örneklerde sonuç kümesini kısaltıyorum gereksiz uzamaması için)
+
+    GET /product?select=id,name,quantity HTTP/1.1
+
+    {
+        "id": 1,
+        "name": "asus",
+        "quantity": 10
+      }
+
+Stoğumuzda 10 ve üzerinde adet olan ürünleri listelemek istiyoruz.
+
+    GET /product?select=id,name,quantity&quantity=gte.10 HTTP/1.1
+
+     [
+      {
+        "id": 1,
+        "name": "asus",
+        "quantity": 10
+      },
+      {
+        "id": 3,
+        "name": "hp",
+        "quantity": 33
+      },
+      {
+        "id": 6,
+        "name": "xiamoi mi",
+        "quantity": 12
+      }
+    ]
+
+adet sayısına göre sıralama yapalım.
+
+    GET /product?select=id,name,quantity&quantity=gte.10&order=quantity.desc HTTP/1.1
+
+    [
+      {
+        "id": 3,
+        "name": "hp",
+        "quantity": 33
+      },
+      {
+        "id": 6,
+        "name": "xiamoi mi",
+        "quantity": 12
+      },
+      {
+        "id": 1,
+        "name": "asus",
+        "quantity": 10
+      }
+    ]
 
 sayfalama yapalım
 
