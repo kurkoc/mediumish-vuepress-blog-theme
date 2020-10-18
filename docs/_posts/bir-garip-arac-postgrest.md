@@ -80,7 +80,7 @@ ilk request olarak product tablomuzun içeriğini listeleyelim;
 peki, tekil bir ürünü getirmek istersek. rest servislerin best practicelerini düşünürsek product/2 şeklinde bir query ile ya da hiç olmadı product?id=2 şeklinde bir query ile olması gerekir mantıken ancak burada graphql tarzı bir gelişmiş sorgulama yapısı sağlayabilmek için farklı bir yaklaşım geliştirilmiş.
 
     GET /product?id=eq.3 HTTP/1.1
-
+    
     [
       {
         "id": 3,
@@ -89,6 +89,8 @@ peki, tekil bir ürünü getirmek istersek. rest servislerin best practicelerini
         "quantity": 33
       }
     ]
+
+\** burada dikkat edilirse unique bir kolon id'ye göre bir filtreleme yaptık, sonuç olarak tek bir obje beklememize rağmen içerisinde tek bir eleman olan bir array döndü yine de bize. bu durum client kodumuzda hataya sebebiyet verebilir. bunu önlemek için Accept header'ı olarak application/vnd.pgrst.object+json  gönderebiliriz.
 
 category_id'si 1 olan ve adeti 20 ve daha fazlası olan ürünler
 
@@ -155,7 +157,7 @@ sayfalama yapalım
 nosql tarzı bir embedded reference ilişkisi kuralım. ürünleri listelerken kategorisini de gidip foreign key ilişkisi üzerinden alalım.
 
     GET /product?select=id,name,quantity,category(id,name) HTTP/1.1
-
+    
     [
       {
         "id": 1,
@@ -196,6 +198,6 @@ Az önce adetini arttırdığımız ürünü silelim.
 
     DELETE /product?id=eq.3 HTTP/1.1
 
-Evet ben bu araca bayıldım ancak bu örnekleri bir yerde sonlandırmam gerekiyor. Kullanılabilen [operatörler](http://postgrest.org/en/v7.0.0/api.html#operators) ve join işlemleri incelendiğinde bir rest servisten beklediğiniz filtreleme, sıralama, sayfalama, crud işlemler vs. hemen hemen her operasyonu yapabildiğinizi rahatlıkla söyleyebilirim ancak bazen karmaşık joinler, filtrelemeler ya da bazı sql yeteneklerini(case when gibi) kullanmanız gereken durumlar olabilir. Bu tarz senaryolarda da view, stored procedure tanımlayıp benzer şekilde çağırabiliyoruz. 
+Evet ben bu araca bayıldım ancak bu örnekleri bir yerde sonlandırmam gerekiyor. Kullanılabilen [operatörler](http://postgrest.org/en/v7.0.0/api.html#operators) ve join işlemleri incelendiğinde bir rest servisten beklediğiniz filtreleme, sıralama, sayfalama, crud işlemler vs. hemen hemen her operasyonu yapabildiğinizi rahatlıkla söyleyebilirim ancak bazen karmaşık joinler, filtrelemeler ya da bazı sql yeteneklerini(case when gibi) kullanmanız gereken durumlar olabilir. Bu tarz senaryolarda da view, stored procedure tanımlayıp benzer şekilde çağırabiliyoruz.
 
 Söyleyeceklerim bu kadar, iyi günler
