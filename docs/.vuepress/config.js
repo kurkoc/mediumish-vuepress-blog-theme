@@ -2,7 +2,7 @@ module.exports = {
   title: 'kurkoc blog',
   base: '/',
   dest: 'public',
-  description: 'Mediumish theme with VuePress and Forestry',
+  description: 'blog...',
   logo: './assets/img/logo.png',
   theme: require.resolve('../../'),
   themeConfig: {
@@ -84,7 +84,7 @@ module.exports = {
     },
     comment: {
       service: 'disqus',
-      shortname: 'demowebsite',
+      shortname: 'kurkoc',
     },
     newsletter: {
       endpoint: 'https://wowthemes.us11.list-manage.com/subscribe/post?u=8aeb20a530e124561927d3bd8&id=8c3d2d214b'
