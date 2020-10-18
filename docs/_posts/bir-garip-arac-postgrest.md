@@ -28,13 +28,13 @@ benim SampleDatabase adında bir database'im var ve içerisinde örnek olması a
 
 ![](/assets/img/db_schema.png)
 
-uygulamanın indirme ve kurulum kısımlarını es geçiyorum. Burada dikkat etmeniz gereken postgrest uygulaması için oluşturulan kullanıcının select, insert, update vs. yapabilmesi için ilgili veritabanı üzerindeki privilege'larının verilmiş olması gerekiyor.
+uygulamanın indirme ve kurulum kısımlarını es geçiyorum. burada dikkat etmeniz gereken postgrest uygulaması için oluşturulan kullanıcının select, insert, update vs. yapabilmesi için ilgili veritabanı üzerindeki privilege'larının verilmiş olması gerekiyor.
 
 ![](/assets/img/run.PNG)
 
 uygulama çalıştırıldığında default olarak 3000 portu üzerinden bir rest servis ayağa kaldırıyor aslında.
 
-İlk request olarak product tablomuzun içeriğini listeleyelim;
+ilk request olarak product tablomuzun içeriğini listeleyelim;
 
     GET /product HTTP/1.1
     
