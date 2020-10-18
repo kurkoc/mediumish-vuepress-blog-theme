@@ -90,7 +90,7 @@ peki, tekil bir ürünü getirmek istersek. rest servislerin best practicelerini
       }
     ]
 
-\** burada dikkat edilirse unique bir kolon id'ye göre bir filtreleme yaptık, sonuç olarak tek bir obje beklememize rağmen içerisinde tek bir eleman olan bir array döndü yine de bize. bu durum client kodumuzda hataya sebebiyet verebilir. bunu önlemek için Accept header'ı olarak application/vnd.pgrst.object+json  gönderebiliriz.
+\** burada dikkat edilirse unique bir kolon olan id'ye göre bir filtreleme yaptık, sonuç olarak tek bir obje beklememize rağmen içerisinde tek bir eleman olan bir array döndü yine de. bu durum client kodumuzda hataya sebebiyet verebilir. bunu önlemek için Accept header'ı olarak application/vnd.pgrst.object+json  gönderebiliriz.
 
 category_id'si 1 olan ve adeti 20 ve daha fazlası olan ürünler
 
@@ -175,7 +175,6 @@ admin hep get requestleri attın, yok mu biraz post, put, delete diyorsunuz muht
 
     POST /category HTTP/1.1
     Content-Type: application/json
-    
     
     {
      "name" : "Klavye"
